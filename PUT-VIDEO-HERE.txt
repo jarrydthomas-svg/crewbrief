@@ -1,0 +1,6 @@
+Place your finished HeyGen MP4 in this folder.
+
+Rename it exactly:
+clutch-brake-safety.mp4
+
+Then upload every file in this folder to the GitHub repository.
