@@ -11,8 +11,15 @@
   Category buttons are created automatically from the category names used here.
 */
 
-window.CREWBRIEF_VIDEOS = [];
-
+window.CREWBRIEF_VIDEOS = [
+  {
+    youtubeId: "gFmrhWiNZJg",
+    title: "Clutch Break",
+    description: "How not to wreck the clutch break.",
+    category: "Training Videos",
+    duration: "1:30"
+  }
+];
 /*
   When you are ready to add your first video, replace the [] above with:
 
