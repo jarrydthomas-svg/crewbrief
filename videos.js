@@ -8,7 +8,8 @@
   To add another video, copy one complete { ... } block, paste it below,
   add a comma between blocks, and change its details.
 
-  Category buttons are created automatically from the category names used here.
+  Use category "Safety Bulletins" or "Training Videos" so the video appears
+  in the correct website section.
 */
 
 window.CREWBRIEF_VIDEOS = [
@@ -16,7 +17,7 @@ window.CREWBRIEF_VIDEOS = [
     youtubeId: "gFmrhWiNZJg",
     title: "Clutch Break",
     description: "How not to wreck the clutch break.",
-    category: "Training Videos",
+    category: "Safety Bulletins",
     duration: "1:30"
   }
 ];
@@ -28,7 +29,7 @@ window.CREWBRIEF_VIDEOS = [
       youtubeId: "YOUR_YOUTUBE_VIDEO_ID",
       title: "Your training video title",
       description: "A short explanation of the training video.",
-      category: "Vehicle operation",
+      category: "Training Videos",
       duration: "1:30"
     }
   ]

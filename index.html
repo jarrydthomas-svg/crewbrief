@@ -1,80 +1,108 @@
 <!doctype html>
 <html lang="en-CA">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-    <meta name="theme-color" content="#0b1116">
-    <meta name="description" content="CrewBrief training library">
-    <link rel="canonical" href="https://crewbrief.ca/">
-    <link rel="preconnect" href="https://i.ytimg.com">
-    <title>CrewBrief | Training Library</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="CrewBrief home">
-        <span class="brand-mark" aria-hidden="true">CB</span>
-        <span>CrewBrief</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a class="nav-link active" href="#training">Training videos</a>
-      </nav>
-    </header>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="theme-color" content="#24150f">
+  <meta name="description" content="CrewBrief safety resources, daily FLHAs, training and crew records">
+  <link rel="canonical" href="https://crewbrief.ca/">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <title>CrewBrief | Crew Safety Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="CrewBrief home"><span class="brand-mark" aria-hidden="true">CB</span><span>CrewBrief</span></a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#dashboard">Dashboard</a>
+      <a class="nav-link" href="#safety-bulletins">Bulletins</a>
+      <a class="nav-link" href="#sops">SOPs</a>
+      <a class="nav-link" href="daily-flha.html">Daily FLHA</a>
+    </nav>
+  </header>
 
-    <main id="top">
-      <section class="intro" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">Training library</p>
-          <h1 id="page-title">Clear instruction.<br>Ready when the crew needs it.</h1>
-        </div>
-        <p class="intro-copy">Choose a topic and open a short training video. New briefings will be added here as the library grows.</p>
-      </section>
+  <main id="top">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">Silver Point Energy Services</p><h1 id="page-title">Crew safety,<br>all in one place.</h1></div>
+      <p class="intro-copy">Open today’s FLHA, review a safety bulletin, or find the document you need before work begins.</p>
+    </section>
 
-      <section id="training" class="library" aria-labelledby="training-title">
-        <div class="section-heading">
-          <div>
-            <p class="section-number">01</p>
-            <h2 id="training-title">Training videos</h2>
-          </div>
-          <p id="video-count" class="video-count" aria-live="polite"></p>
-        </div>
-
-        <div id="category-list" class="categories" aria-label="Training video categories"></div>
-        <div id="video-grid" class="video-grid"></div>
-        <div id="empty-state" class="empty-state" hidden>
-          <strong>Training library ready</strong>
-          <span>No training videos have been added yet.</span>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span class="footer-brand">CrewBrief</span>
-      <span>Practical training, kept simple.</span>
-    </footer>
-
-    <dialog id="video-dialog" class="video-dialog" aria-labelledby="dialog-title">
-      <div class="dialog-shell">
-        <button id="close-dialog" class="close-button" type="button" aria-label="Close video">×</button>
-        <div class="video-frame">
-          <iframe
-            id="youtube-player"
-            title="Training video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="dialog-details">
-          <p id="dialog-category" class="card-category"></p>
-          <h2 id="dialog-title"></h2>
-          <p id="dialog-description"></p>
-        </div>
+    <section id="dashboard" class="dashboard" aria-labelledby="dashboard-title">
+      <div class="section-heading compact-heading"><div><p class="section-kicker">Quick access</p><h2 id="dashboard-title">CrewBrief dashboard</h2></div></div>
+      <div class="topic-grid">
+        <a class="topic-card priority-card" href="daily-flha.html"><span class="topic-icon" aria-hidden="true">FLHA</span><span><strong>Daily FLHAs</strong><small>Complete today’s 24-hour field-level hazard assessment.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#safety-bulletins"><span class="topic-icon" aria-hidden="true">SB</span><span><strong>Safety Bulletins</strong><small>Current safety notices and required crew briefings.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#training-videos"><span class="topic-icon" aria-hidden="true">▶</span><span><strong>Training Videos</strong><small>Short, practical instruction for field operations.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#bulletin-board"><span class="topic-icon" aria-hidden="true">BB</span><span><strong>Bulletin Board</strong><small>Crew announcements and important updates.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#policies"><span class="topic-icon" aria-hidden="true">P</span><span><strong>Policies</strong><small>Company policies, guidelines and safe-work expectations.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#tickets"><span class="topic-icon" aria-hidden="true">ID</span><span><strong>Tickets</strong><small>Training tickets and certification records.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#competencies"><span class="topic-icon" aria-hidden="true">✓</span><span><strong>Competencies</strong><small>Operator evaluations and competency documents.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#sops"><span class="topic-icon" aria-hidden="true">SOP</span><span><strong>SOP Library</strong><small>Numbered procedures and their hazard assessments.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
+        <a class="topic-card" href="#msds"><span class="topic-icon" aria-hidden="true">SDS</span><span><strong>MSDS / SDS</strong><small>Material safety data sheets for workplace products.</small></span><span class="topic-arrow" aria-hidden="true">→</span></a>
       </div>
-    </dialog>
+    </section>
 
-    <script src="videos.js"></script>
-    <script src="app.js"></script>
-  </body>
+    <section id="safety-bulletins" class="content-section stitched-panel" aria-labelledby="bulletins-title">
+      <div class="section-heading"><div><p class="section-kicker">Safety Bulletins</p><h2 id="bulletins-title">Current crew briefings</h2></div><p id="bulletin-count" class="item-count" aria-live="polite"></p></div>
+      <div id="bulletin-grid" class="video-grid"></div>
+      <div id="bulletin-empty" class="empty-state" hidden><strong>No safety bulletins posted</strong><span>New bulletins will appear here.</span></div>
+    </section>
+
+    <section id="training-videos" class="content-section stitched-panel" aria-labelledby="training-title">
+      <div class="section-heading"><div><p class="section-kicker">Training Videos</p><h2 id="training-title">Training library</h2></div><p id="training-count" class="item-count" aria-live="polite"></p></div>
+      <div id="training-grid" class="video-grid"></div>
+      <div id="training-empty" class="empty-state" hidden><strong>Training library ready</strong><span>Training videos can be added whenever they are ready.</span></div>
+    </section>
+
+    <section id="bulletin-board" class="content-section stitched-panel short-panel" aria-labelledby="board-title">
+      <div class="section-heading"><div><p class="section-kicker">Bulletin Board</p><h2 id="board-title">Crew announcements</h2></div></div>
+      <div class="empty-state"><strong>Nothing posted today</strong><span>Company announcements and crew notices will appear here.</span></div>
+    </section>
+
+    <section id="policies" class="content-section stitched-panel" aria-labelledby="policies-title">
+      <div class="section-heading"><div><p class="section-kicker">Policies</p><h2 id="policies-title">Policies and guidelines</h2></div><p id="policy-count" class="item-count"></p></div>
+      <div id="policy-list" class="document-list"></div>
+    </section>
+
+    <section id="tickets" class="content-section stitched-panel short-panel" aria-labelledby="tickets-title">
+      <div class="section-heading"><div><p class="section-kicker">Tickets</p><h2 id="tickets-title">Training tickets</h2></div></div>
+      <div class="empty-state"><strong>Secure records coming next</strong><span>Employee tickets will be shown here after sign-in and private storage are connected.</span></div>
+    </section>
+
+    <section id="competencies" class="content-section stitched-panel" aria-labelledby="competencies-title">
+      <div class="section-heading"><div><p class="section-kicker">Competencies</p><h2 id="competencies-title">Operator competencies</h2></div><p id="competency-count" class="item-count"></p></div>
+      <div id="competency-list" class="document-list"></div>
+    </section>
+
+    <section id="sops" class="content-section stitched-panel" aria-labelledby="sops-title">
+      <div class="section-heading"><div><p class="section-kicker">SOP Library</p><h2 id="sops-title">Procedures and safety documents</h2></div><p id="document-count" class="item-count" aria-live="polite"></p></div>
+      <div class="library-controls">
+        <label class="search-field"><span>Search by number or topic</span><input id="document-search" type="search" placeholder="Example: 2.06 or lock out"></label>
+        <div id="document-categories" class="categories" aria-label="Document categories"></div>
+      </div>
+      <div id="document-list" class="document-list"></div>
+      <div id="document-empty" class="empty-state" hidden><strong>No matching documents</strong><span>Try another SOP number or topic.</span></div>
+    </section>
+
+    <section id="msds" class="content-section stitched-panel short-panel" aria-labelledby="msds-title">
+      <div class="section-heading"><div><p class="section-kicker">MSDS / SDS</p><h2 id="msds-title">Material safety data sheets</h2></div></div>
+      <div class="empty-state"><strong>MSDS library ready</strong><span>Product safety sheets will appear here as they are added.</span></div>
+    </section>
+  </main>
+
+  <footer><span class="footer-brand">CrewBrief</span><a href="#top">Back to top ↑</a></footer>
+
+  <dialog id="video-dialog" class="video-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-shell">
+      <button id="close-dialog" class="close-button" type="button" aria-label="Close video">×</button>
+      <div class="video-frame"><iframe id="youtube-player" title="Video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      <div class="dialog-details"><p id="dialog-category" class="card-category"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p></div>
+    </div>
+  </dialog>
+
+  <script src="videos.js"></script>
+  <script src="documents.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>

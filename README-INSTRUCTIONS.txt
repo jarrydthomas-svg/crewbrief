@@ -1,49 +1,60 @@
-CREWBRIEF — ADDING OR CHANGING YOUTUBE VIDEOS
+CREWBRIEF — WEBSITE UPDATE GUIDE
 
-The only file you need to edit is:
+The website is hosted from this GitHub repository:
+https://github.com/jarrydthomas-svg/crewbrief
 
-    videos.js
+MAIN FILES
 
-YOUR WEBSITE STARTS EMPTY
+index.html      Website sections and visible wording
+styles.css      Leather, stitching, colours and mobile layout
+app.js          Search, document lists and video player behaviour
+videos.js       Safety bulletin and training video details
+documents.js    List of uploaded PDF documents
+daily-flha.html Daily FLHA form
+documents/      PDF files shown in the document libraries
 
-There are no videos or video files in the website. A YouTube player appears only
-after you add a YouTube video ID and a visitor clicks its training card.
-
-HOW TO ADD YOUR FIRST VIDEO
+ADD OR CHANGE A VIDEO
 
 1. Open videos.js in GitHub.
-2. Click the pencil icon (Edit this file).
-3. Replace this line:
+2. Select the pencil icon.
+3. Copy one complete video block, including its { and }.
+4. Paste it below the last block, with a comma between blocks.
+5. Enter the YouTube ID, title, description and duration.
+6. Use category "Safety Bulletins" or "Training Videos".
+7. Select Commit changes.
 
-       window.CREWBRIEF_VIDEOS = [];
-
-   with the example video block included in the comments directly below it.
-4. Replace YOUR_YOUTUBE_VIDEO_ID and the other example details.
-5. Click Commit changes.
-
-HOW TO FIND THE YOUTUBE ID
-
-If the link is:
+YouTube example:
 https://youtu.be/ABC123xyz
+The YouTube ID is ABC123xyz.
 
-The YouTube ID is:
-ABC123xyz
+ADD A PDF
 
-If the link is:
-https://www.youtube.com/watch?v=ABC123xyz
+1. Open the documents folder in GitHub.
+2. Select Add file, then Upload files.
+3. Upload the PDF and commit the change.
+4. Open documents.js and add a matching document block.
+5. Use one of these exact categories:
+   Standard Operating Procedures
+   Hazard Assessments
+   Policies & Guidelines
+   Competencies
+   Safety Resources
 
-The YouTube ID is still:
-ABC123xyz
+Example:
+{
+  title: "2.06 Lock Out Tag Out",
+  category: "Standard Operating Procedures",
+  file: "documents/2.06_Lock_Out_Tag_Out.pdf"
+}
 
-HOW TO ADD MORE VIDEOS
+ADD A NEW MAIN TOPIC
 
-Copy one complete video block in videos.js, including the opening { and closing }.
-Paste it below the last video block, put a comma between the blocks, and change
-the details. The category button is created automatically from the category name.
+The dashboard button and the matching content section are both in index.html.
+Copy an existing topic-card and its matching content-section, then change the
+heading, link and section id. Styling is inherited automatically from styles.css.
 
 IMPORTANT
 
 - Upload videos to YouTube, not GitHub.
-- Unlisted YouTube videos work on this website.
-- Do not upload MP4 files to the repository.
-- Keep the filename videos.js exactly as it is.
+- Keep employee tickets and competencies private once individual records are used.
+- Test every new link after GitHub Pages finishes publishing.

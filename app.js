@@ -2,133 +2,145 @@
   "use strict";
 
   const videos = Array.isArray(window.CREWBRIEF_VIDEOS) ? window.CREWBRIEF_VIDEOS : [];
-  const grid = document.querySelector("#video-grid");
-  const categoryList = document.querySelector("#category-list");
-  const count = document.querySelector("#video-count");
-  const emptyState = document.querySelector("#empty-state");
+  const documents = Array.isArray(window.CREWBRIEF_DOCUMENTS) ? window.CREWBRIEF_DOCUMENTS : [];
   const dialog = document.querySelector("#video-dialog");
   const player = document.querySelector("#youtube-player");
-  const closeButton = document.querySelector("#close-dialog");
-  const dialogTitle = document.querySelector("#dialog-title");
-  const dialogCategory = document.querySelector("#dialog-category");
-  const dialogDescription = document.querySelector("#dialog-description");
-  const allCategory = "All training";
-  let activeCategory = allCategory;
+  const search = document.querySelector("#document-search");
+  const categoryList = document.querySelector("#document-categories");
+  const allDocuments = "All documents";
+  let activeDocumentCategory = allDocuments;
 
-  const playIcon = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="currentColor" d="M8 5v14l11-7z"></path>
-    </svg>`;
+  const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>';
 
-  function safeText(value) {
-    return String(value ?? "");
-  }
-
-  function thumbnailUrl(videoId) {
-    return `https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg`;
-  }
-
-  function categories() {
-    return [allCategory, ...new Set(videos.map((video) => video.category).filter(Boolean))];
-  }
-
-  function renderCategories() {
-    categoryList.replaceChildren();
-
-    categories().forEach((category) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `category-button${category === activeCategory ? " active" : ""}`;
-      button.textContent = category;
-      button.setAttribute("aria-pressed", String(category === activeCategory));
-      button.addEventListener("click", () => {
-        activeCategory = category;
-        renderCategories();
-        renderVideos();
-      });
-      categoryList.append(button);
-    });
-  }
+  function safeText(value) { return String(value ?? ""); }
+  function thumbnailUrl(id) { return `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`; }
 
   function openVideo(video) {
-    const id = encodeURIComponent(video.youtubeId);
-    dialogTitle.textContent = safeText(video.title);
-    dialogCategory.textContent = safeText(video.category);
-    dialogDescription.textContent = safeText(video.description);
-    player.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    document.querySelector("#dialog-title").textContent = safeText(video.title);
+    document.querySelector("#dialog-category").textContent = safeText(video.category);
+    document.querySelector("#dialog-description").textContent = safeText(video.description);
+    player.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.youtubeId)}?autoplay=1&rel=0`;
     dialog.showModal();
   }
 
   function closeVideo() {
     player.src = "";
-    dialog.close();
+    if (dialog.open) dialog.close();
   }
 
-  function buildCard(video) {
+  function buildVideoCard(video) {
     const card = document.createElement("button");
     card.type = "button";
     card.className = "video-card";
     card.setAttribute("aria-label", `Play ${safeText(video.title)}`);
-
-    const thumbnail = document.createElement("div");
-    thumbnail.className = "thumbnail";
-
-    const image = document.createElement("img");
-    image.src = thumbnailUrl(video.youtubeId);
-    image.alt = "";
-    image.loading = "lazy";
-
-    const play = document.createElement("span");
-    play.className = "play-icon";
-    play.innerHTML = playIcon;
-
-    const duration = document.createElement("span");
-    duration.className = "duration";
-    duration.textContent = safeText(video.duration);
-
-    const copy = document.createElement("span");
-    copy.className = "card-copy";
-
-    const category = document.createElement("span");
-    category.className = "card-category";
-    category.textContent = safeText(video.category);
-
-    const title = document.createElement("h3");
-    title.textContent = safeText(video.title);
-
-    const description = document.createElement("p");
-    description.textContent = safeText(video.description);
-
-    const watch = document.createElement("span");
-    watch.className = "watch-label";
-    watch.textContent = "Watch briefing →";
-
-    thumbnail.append(image, play, duration);
-    copy.append(category, title, description, watch);
-    card.append(thumbnail, copy);
+    card.innerHTML = `
+      <span class="thumbnail">
+        <img src="${thumbnailUrl(video.youtubeId)}" alt="" loading="lazy">
+        <span class="play-icon">${playIcon}</span>
+        <span class="duration">${safeText(video.duration)}</span>
+      </span>
+      <span class="card-copy">
+        <span class="card-category">${safeText(video.category)}</span>
+        <h3>${safeText(video.title)}</h3>
+        <p>${safeText(video.description)}</p>
+        <span class="watch-label">Watch briefing →</span>
+      </span>`;
     card.addEventListener("click", () => openVideo(video));
     return card;
   }
 
-  function renderVideos() {
-    const visible = activeCategory === allCategory
-      ? videos
-      : videos.filter((video) => video.category === activeCategory);
-
-    grid.replaceChildren(...visible.map(buildCard));
-    count.textContent = `${visible.length} ${visible.length === 1 ? "video" : "videos"}`;
-    emptyState.hidden = visible.length !== 0;
+  function renderVideoGroup(category, gridId, countId, emptyId) {
+    const items = videos.filter((video) => video.category === category);
+    const grid = document.querySelector(gridId);
+    grid.replaceChildren(...items.map(buildVideoCard));
+    document.querySelector(countId).textContent = `${items.length} ${items.length === 1 ? "video" : "videos"}`;
+    document.querySelector(emptyId).hidden = items.length !== 0;
   }
 
-  closeButton.addEventListener("click", closeVideo);
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) closeVideo();
-  });
-  dialog.addEventListener("cancel", (event) => {
-    event.preventDefault();
-    closeVideo();
-  });
+  function documentBadge(category) {
+    if (category === "Hazard Assessments") return "HA";
+    if (category === "Policies & Guidelines") return "POL";
+    if (category === "Competencies") return "COMP";
+    if (category === "Safety Resources") return "INFO";
+    return "SOP";
+  }
 
-  renderCategories();
-  renderVideos();
+  function buildDocumentLink(item) {
+    const link = document.createElement("a");
+    link.className = "document-link";
+    link.href = encodeURI(item.file);
+    link.target = "_blank";
+    link.rel = "noopener";
+
+    const badge = document.createElement("span");
+    badge.className = "document-badge";
+    badge.textContent = documentBadge(item.category);
+
+    const copy = document.createElement("span");
+    const title = document.createElement("span");
+    title.className = "document-title";
+    title.textContent = item.title;
+    const type = document.createElement("small");
+    type.className = "document-type";
+    type.textContent = item.category;
+    copy.append(title, type);
+
+    const arrow = document.createElement("span");
+    arrow.className = "document-open";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "↗";
+    link.append(badge, copy, arrow);
+    return link;
+  }
+
+  function renderFixedDocuments(category, listId, countId) {
+    const items = documents.filter((document) => document.category === category)
+      .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+    document.querySelector(listId).replaceChildren(...items.map(buildDocumentLink));
+    document.querySelector(countId).textContent = `${items.length} ${items.length === 1 ? "document" : "documents"}`;
+  }
+
+  function libraryDocuments() {
+    return documents.filter((document) => !["Policies & Guidelines", "Competencies"].includes(document.category));
+  }
+
+  function renderDocumentCategories() {
+    const categories = [allDocuments, ...new Set(libraryDocuments().map((document) => document.category))];
+    categoryList.replaceChildren(...categories.map((category) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `category-button${category === activeDocumentCategory ? " active" : ""}`;
+      button.textContent = category;
+      button.setAttribute("aria-pressed", String(category === activeDocumentCategory));
+      button.addEventListener("click", () => {
+        activeDocumentCategory = category;
+        renderDocumentCategories();
+        renderDocuments();
+      });
+      return button;
+    }));
+  }
+
+  function renderDocuments() {
+    const query = search.value.trim().toLowerCase();
+    const items = libraryDocuments()
+      .filter((document) => activeDocumentCategory === allDocuments || document.category === activeDocumentCategory)
+      .filter((document) => `${document.title} ${document.category}`.toLowerCase().includes(query))
+      .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+    document.querySelector("#document-list").replaceChildren(...items.map(buildDocumentLink));
+    document.querySelector("#document-count").textContent = `${items.length} ${items.length === 1 ? "document" : "documents"}`;
+    document.querySelector("#document-empty").hidden = items.length !== 0;
+  }
+
+  document.querySelector("#close-dialog").addEventListener("click", closeVideo);
+  dialog.addEventListener("click", (event) => { if (event.target === dialog) closeVideo(); });
+  dialog.addEventListener("cancel", (event) => { event.preventDefault(); closeVideo(); });
+  search.addEventListener("input", renderDocuments);
+
+  renderVideoGroup("Safety Bulletins", "#bulletin-grid", "#bulletin-count", "#bulletin-empty");
+  renderVideoGroup("Training Videos", "#training-grid", "#training-count", "#training-empty");
+  renderFixedDocuments("Policies & Guidelines", "#policy-list", "#policy-count");
+  renderFixedDocuments("Competencies", "#competency-list", "#competency-count");
+  renderDocumentCategories();
+  renderDocuments();
 }());
