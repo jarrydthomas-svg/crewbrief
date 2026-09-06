@@ -68,7 +68,9 @@
   function buildDocumentLink(item) {
     const link = document.createElement("a");
     link.className = "document-link";
-    link.href = encodeURI(item.file);
+    // GitHub's browser uploader places the supplied PDFs at the repository root.
+    // Strip the original package folder so the live links match their published location.
+    link.href = encodeURI(item.file.replace(/^documents\//, ""));
     link.target = "_blank";
     link.rel = "noopener";
 

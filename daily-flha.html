@@ -1069,7 +1069,51 @@
 
   let sopLibrary = normalizeSopLibrary(window.FLHA_SOP_LIBRARY);
   if (!sopLibrary.length) sopLibrary = normalizeSopLibrary(defaultSopLibrary);
-  const sopBaseUrl = String(window.FLHA_SOP_BASE_URL || 'https://crewbrief.ca/sops/').replace(/\/?$/, '/');
+  const sopBaseUrl = String(window.FLHA_SOP_BASE_URL || 'https://crewbrief.ca/').replace(/\/?$/, '/');
+  const sopFiles = {
+    '1.01':'1.01_Complete_Vacuum_System.pdf',
+    '1.03':'1.03_Gallop_Agitator.pdf',
+    '1.04':'1.04_Loading.pdf',
+    '1.05':'1.05_Burping_the_Vacuum_Truck.pdf',
+    '1.06':'1.06_Shaling_Out.pdf',
+    '1.07':'1.07_Cement_Procedure.pdf',
+    '1.08':'1.08_Land_Spreading.pdf',
+    '1.09':'1.09_Transferring_Fluids.pdf',
+    '1.40':'1.40_Water_Truck_Operation.pdf',
+    '1.41':'1.41 Water Loading COLD_ICE.pdf',
+    '2.01':'2.01_Backing_Up.pdf',
+    '2.02':'2.02_Hooking_&_Unhooking_Trailers.pdf',
+    '2.03':'2.03_Working_with_Tire_Chains.pdf',
+    '2.04':'2.04_Tire_Pressure_Control_System.pdf',
+    '2.05':'2.05_Servicing_the_Vacuum_Truck.pdf',
+    '2.06':'2.06_Lock_out___Tag_Out_of_Trucks_and_Trailers.pdf',
+    '2.07':'2.07_Fueling.pdf',
+    '2.08':'2.08_Pre_Post_Trip_Inspection.pdf',
+    '2.09':'2.09_Air_Brake_Adjustment.pdf',
+    '2.10':'2.10_Wheel_Re-Torque.pdf',
+    '2.11':'2.11_Dealing_With_a_Vehicle_Breakdown.pdf',
+    '2.12':'2.12_Vehicle_Recovery.pdf',
+    '2.13':'2.13_Changing_a_Tire.pdf',
+    '3.01':'3.01_Orientation_of_New_Operators.pdf',
+    '3.02':'3.02_Switching_Out_Operators.pdf',
+    '3.03':'3.03_Parking_Truck_for_Shut_Down.pdf',
+    '3.04':'3.04_Switching_Out_Trucks.pdf',
+    '4.01':'4.01_Ascending_&_Descending_Trucks.pdf',
+    '4.02':'4.02_Working_Alone.pdf',
+    '4.03':'4.03_Heavy_Lifting.pdf',
+    '4.04':'4.04_Confined_Space_(entry_&_exit).pdf',
+    '4.05':'4.05_Confrontation_with_Enraged_Individual.pdf',
+    '4.06':'4.06_Job_Task_Observation_SOP.pdf',
+    '4.07':'4.07_Working_on_Ice_and_Ice_Auger.pdf',
+    '5.01':'5.01_Viewing_Cement_Pits,_Sumps_and_Spread_Fields.pdf',
+    '5.02':'5.02_Working_With_Open_Pits.pdf',
+    '5.03':'5.03_Drilling_Rig_Orientation.pdf',
+    '5.04':'5.04_General_Shack_Information.pdf',
+    '5.05':'5.05_Restricted_Work_Space.pdf',
+    '6.01':'6.01_Drivers_Hours_of_Service_.pdf',
+    '6.02':'6.02_Reporting.pdf',
+    '7.01':'7.01_Defensive_Driving.pdf'
+  };
 
   function sopContext(){
     const values = [fieldValue('task')];
@@ -1096,7 +1140,8 @@
     selected.forEach(number => {
       const link = document.createElement('a');
       link.className = 'sop-number-link';
-      link.href = sopBaseUrl + encodeURIComponent(number) + '.pdf';
+      const sopFile = sopFiles[number];
+      link.href = sopFile ? sopBaseUrl + encodeURI(sopFile) : 'https://crewbrief.ca/#sops';
       link.target = '_blank';
       link.rel = 'noopener';
       link.textContent = number;
